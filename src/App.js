@@ -1,25 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import useMobxStore from "./store/counter/useCounter";
+import { Observer } from "mobx-react";
 
 function App() {
-  return (
+  const { counterStore } = useMobxStore();
+
+  const Test = () => (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <header className="App-header">{counterStore.counter}</header>
+      <button
+        onClick={() => {
+          counterStore.increase();
+        }}
+      >
+        plus
+      </button>
+      <button
+        onClick={() => {
+          counterStore.decrease();
+        }}
+      >
+        minus
+      </button>
     </div>
   );
+
+  return <Observer>{Test}</Observer>;
 }
 
 export default App;
